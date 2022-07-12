@@ -18,9 +18,8 @@ router.post('/tasks', auth, async (req, res) => {
 })
 
 // GET /tasks?completed=true
-// GET /tasks?limit=10&skip=10
-// GET /tasks?sortBy=createdAt_asc
-
+// GET /tasks?limit=10&skip=20
+// GET /tasks?sortBy=createdAt:desc
 router.get('/tasks', auth, async (req, res) => {
     const match = {}
     const sort = {}
@@ -29,9 +28,9 @@ router.get('/tasks', auth, async (req, res) => {
         match.completed = req.query.completed === 'true'
     }
 
-    if(req.query.sortBy) {
+    if (req.query.sortBy) {
         const parts = req.query.sortBy.split(':')
-        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1 
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
     }
 
     try {
